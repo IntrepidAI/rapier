@@ -1,0 +1,13 @@
+[package]
+name = "dae_test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dae-parser = "0.10.0"
+rapier3d = { version = "0.22", path = "../rapier3d" }
+stl_io = "0.7"
+thiserror = "1.0.61"
+
+# [lints]
+# workspace = true

@@ -518,6 +518,7 @@ fn urdf_to_collider(
                 .map(|s| Vector::new(s.x as Real, s.y as Real, s.z as Real))
                 .unwrap_or_else(|| Vector::<Real>::repeat(1.0));
             match path.extension().and_then(|ext| ext.to_str()) {
+
                 #[cfg(feature = "stl")]
                 Some("stl") | Some("STL") => {
                     let full_path = mesh_dir.join(filename);
@@ -536,6 +537,31 @@ fn urdf_to_collider(
                         }
                     }
                 }
+
+                #[cfg(feature = "dae")]
+                Some("dae") | Some("DAE") => {
+                    let full_path = mesh_dir.join(filename);
+                    dbg!(&full_path);
+
+                    // TODO connect when done
+                    match rapier3d_dae::load_from_path(
+                        full_path,
+                        MeshConverter::TriMeshWithFlags(options.trimesh_flags),
+                        scale,
+                    ) {
+                        Ok(dae_shape) => {
+                            shape_transform = dae_shape.pose;
+                            dae_shape.shape
+                        }
+                        Err(e) => {
+                            log::error!("failed to load Collada file {filename}: {e}");
+                            return None;
+                        }
+                    }
+
+                    unimplemented!()
+                }
+
                 _ => {
                     log::error!("failed to load file with unknown type {filename}");
                     return None;
