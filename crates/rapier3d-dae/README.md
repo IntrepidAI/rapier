@@ -1,8 +1,8 @@
-## STL loader for the Rapier physics engine
+## Collada loader for the Rapier physics engine
 
-Rapier is a set of 2D and 3D physics engines for games, animation, and robotics. The `rapier3d-stl`
+Rapier is a set of 2D and 3D physics engines for games, animation, and robotics. The `rapier3d-dae`
 crate lets you create a shape compatible with `rapier3d` and `parry3d` (the underlying collision-detection
-library) from an STL file.
+library) from a Collada (.dae) file.
 
 ## Resources and discussions
 
